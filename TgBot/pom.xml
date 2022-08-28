@@ -14,11 +14,20 @@
     </properties>
 
     <dependencies>
+
         <dependency>
-            <groupId>com.github.pengrad</groupId>
-            <artifactId>java-telegram-bot-api</artifactId>
+            <artifactId>telegrambots</artifactId>
+            <groupId>org.telegram</groupId>
             <version>6.1.0</version>
         </dependency>
+
+        <dependency>
+            <artifactId>lombok</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <scope>provided</scope>
+            <version>1.18.24</version>
+        </dependency>
+
     </dependencies>
 
 </project>
