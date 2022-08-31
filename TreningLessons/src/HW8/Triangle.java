@@ -6,4 +6,9 @@ public class Triangle extends Shape{
     public Triangle() {
         super.setName(this.name);
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }

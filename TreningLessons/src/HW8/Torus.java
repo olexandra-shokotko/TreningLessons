@@ -6,4 +6,9 @@ public class Torus extends Shape{
     public Torus() {
         super.setName(this.name);
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }

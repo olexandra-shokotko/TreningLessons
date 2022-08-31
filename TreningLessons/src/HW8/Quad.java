@@ -6,4 +6,9 @@ public class Quad extends Shape{
     public Quad() {
         super.setName(this.name);
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }

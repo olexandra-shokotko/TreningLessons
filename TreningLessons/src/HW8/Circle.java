@@ -6,4 +6,9 @@ public class Circle extends Shape{
     public Circle() {
         super.setName(this.name);
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }

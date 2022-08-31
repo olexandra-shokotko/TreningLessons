@@ -6,4 +6,9 @@ public class Pyramid extends Shape{
     public Pyramid() {
         super.setName(this.name);
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }
