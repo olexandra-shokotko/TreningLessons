@@ -1,5 +1,12 @@
 package HW8;
 
+import HW8.Shapes.*;
+import HW8.Shapes.ThreeDimensionalShapes.Pyramid;
+import HW8.Shapes.ThreeDimensionalShapes.Torus;
+import HW8.Shapes.TwoDimensionalShapes.Circle;
+import HW8.Shapes.TwoDimensionalShapes.Quad;
+import HW8.Shapes.TwoDimensionalShapes.Triangle;
+
 public class Program {
     public static void main(String[] args) {
         Shape triangle = new Triangle();
