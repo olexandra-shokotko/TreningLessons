@@ -22,7 +22,7 @@ public class Main {
         System.out.println("First element: " + myQueue.peek());
 
         System.out.println("Queue after removing 2 index element------------");
-        myQueue.remove(2);
+        myQueue.remove(9);
         myQueue.print();
         System.out.println("Size: " + myQueue.size());
 

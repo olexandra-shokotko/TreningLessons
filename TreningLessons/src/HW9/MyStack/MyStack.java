@@ -27,27 +27,33 @@ public class MyStack {
 
     public void push(Object value) {
         Node newNode = new Node(value, null);
-        if (head == null) {
-            head = newNode;
-        } else {
+        if (head != null) {
             newNode.prev = head;
-            head = newNode;
         }
+        head = newNode;
         size++;
     }
 
     public void remove(int index) {
-        Node currentNode = head;
-        Node prevCurrentNode = currentNode;
-        for (int i = 0; i < (size - index - 2); i++) {
-            prevCurrentNode = prevCurrentNode.prev;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Invalid index");
         }
-        for (int i = 0; i < (size - index - 1); i++) {
-            currentNode = currentNode.prev;
+
+        if (index == size - 1) {
+            head = head.prev;
+        } else {
+            Node currentNode = head;
+            Node prevCurrentNode = currentNode;
+            for (int i = 0; i < (size - index - 2); i++) {
+                prevCurrentNode = prevCurrentNode.prev;
+            }
+            for (int i = 0; i < (size - index - 1); i++) {
+                currentNode = currentNode.prev;
+            }
+            prevCurrentNode.prev = currentNode.prev;
+            currentNode.prev = null;
+            currentNode = null;
         }
-        prevCurrentNode.prev = currentNode.prev;
-        currentNode.prev = null;
-        currentNode = null;
         size--;
     }
 
@@ -70,17 +76,15 @@ public class MyStack {
     }
 
     public Object pop() {
-        Node currentNode = head;
-        Node prevCurrentNode = currentNode;
-        for (int i = 0; i < (size - 2); i++) {
-            prevCurrentNode = prevCurrentNode.prev;
+        Node prevNode = head;
+        Node curNode = prevNode.prev;
+        while (curNode.prev != null) {
+            prevNode = prevNode.prev;
+            curNode = curNode.prev;
         }
-        for (int i = 0; i < (size - 1); i++) {
-            currentNode = currentNode.prev;
-        }
-        prevCurrentNode.prev = null;
+        prevNode.prev = null;
         size--;
-        return currentNode;
+        return curNode;
     }
 
     public void print() {
@@ -90,5 +94,4 @@ public class MyStack {
             node = node.prev;
         }
     }
-
 }
