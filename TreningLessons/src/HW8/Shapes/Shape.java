@@ -1,14 +1,9 @@
-package HW8;
+package HW8.Shapes;
 
-public abstract class Shape implements Printable {
+public abstract class Shape {
     private String name;
 
     public Shape() {
-    }
-
-    @Override
-    public void printShape() {
-        System.out.println(name);
     }
 
     public String getName() {
