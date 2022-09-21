@@ -20,39 +20,35 @@ public class Main {
         Person p14 = new Person(181, 99, 65);
         Person p15 = new Person(183, 99, 87);
 
-        Person[] people = new Person[] {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15};
+        Person[] people = new Person[]{p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15};
 
-        Comparator<Person> personAgeComparator = (o1, o2) -> o1.getAge() - o2.getAge();
-        Comparator<Person> personHeightComparator = (o1, o2) -> o1.getHeight() - o2.getHeight();
-        Comparator<Person> personWeightComparator = (o1, o2) -> o1.getWeight() - o2.getWeight();
+        Comparator<Person> personAgeComparator = Comparator.comparingInt(Person::getAge);
+        Comparator<Person> personHeightComparator = Comparator.comparingInt(Person::getHeight);
+        Comparator<Person> personWeightComparator = Comparator.comparingInt(Person::getWeight);
 
-        // Додаткове запитання. Можна забезпечити лінійну складність алгоритму по часу, якщо використовувати Radix sort
-        // Radix sort має складність алгоритму O(nk), де k - кількість цифр в числі. В нашому випадку максимальне значення k може бути 3.
-        // Адже ми сортуємо по віку, а вік може бути максимально трьохзначним числом.
 
         // 1 task
         System.out.println("Sort by age -----------------------------------------");
-        Arrays.sort(people, personAgeComparator);
+        QuickSort.sort(people, 0, people.length - 1, personAgeComparator);
         for (Person p : people) {
             System.out.println(p);
         }
 
         // 2 task
         System.out.println("Sort by height -----------------------------------------");
-        Arrays.sort(people, personHeightComparator);
+        QuickSort.sort(people, 0, people.length - 1, personHeightComparator);
         for (Person p : people) {
             System.out.println(p);
         }
         System.out.println("Sort by weight-----------------------------------------");
-        Arrays.sort(people, personWeightComparator);
+        QuickSort.sort(people, 0, people.length - 1, personWeightComparator);
         for (Person p : people) {
             System.out.println(p);
         }
 
         //3 task
         System.out.println("-----------------------------------------");
-
-        Arrays.sort(people, personWeightComparator);
+        QuickSort.sort(people, 0, people.length - 1, personWeightComparator);
         System.out.println("Quantity of people with same weight and different height: " + findPeopleSameWeightDiffHeight(people));
     }
 
@@ -87,3 +83,8 @@ public class Main {
         return resultCounter;
     }
 }
+
+// Додаткове запитання. Можна забезпечити лінійну складність алгоритму по часу, якщо використовувати Radix sort
+// Radix sort має складність алгоритму O(nk), де k - кількість цифр в числі. В нашому випадку максимальне значення k може бути 3.
+// Адже ми сортуємо по віку, а вік може бути максимально трьохзначним числом.
+
