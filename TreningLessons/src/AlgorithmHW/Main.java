@@ -26,29 +26,28 @@ public class Main {
         Comparator<Person> personHeightComparator = Comparator.comparingInt(Person::getHeight);
         Comparator<Person> personWeightComparator = Comparator.comparingInt(Person::getWeight);
 
-
         // 1 task
         System.out.println("Sort by age -----------------------------------------");
-        QuickSort.sort(people, 0, people.length - 1, personAgeComparator);
+        QuickSort.sort(people, personAgeComparator);
         for (Person p : people) {
             System.out.println(p);
         }
 
         // 2 task
         System.out.println("Sort by height -----------------------------------------");
-        QuickSort.sort(people, 0, people.length - 1, personHeightComparator);
+        QuickSort.sort(people, personHeightComparator);
         for (Person p : people) {
             System.out.println(p);
         }
         System.out.println("Sort by weight-----------------------------------------");
-        QuickSort.sort(people, 0, people.length - 1, personWeightComparator);
+        QuickSort.sort(people, personWeightComparator);
         for (Person p : people) {
             System.out.println(p);
         }
 
         //3 task
         System.out.println("-----------------------------------------");
-        QuickSort.sort(people, 0, people.length - 1, personWeightComparator);
+        QuickSort.sort(people, personWeightComparator);
         System.out.println("Quantity of people with same weight and different height: " + findPeopleSameWeightDiffHeight(people));
     }
 
@@ -60,7 +59,7 @@ public class Main {
         int sameWeightCounter = 0;
         List<Integer> heights = new ArrayList<>();
 
-        for (int i = 0; i < people.length; i++) { // n
+        for (int i = 0; i < people.length; i++) {
             if (people[i].getWeight() == currentWeight) {
                 if (!heights.contains(people[i].getHeight())) {
                     heights.add(people[i].getHeight());

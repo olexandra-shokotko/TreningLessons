@@ -4,12 +4,16 @@ import java.util.Comparator;
 
 public class QuickSort {
 
+    static void sort(Person[] arr, Comparator<Person> personComparator) {
+        sort(arr, 0, arr.length - 1, personComparator);
+    }
+
     static void sort(Person[] arr, int low, int high, Comparator<Person> personComparator) {
         if (low < high) {
-            int pi = partition(arr, low, high, personComparator);
+            int p = partition(arr, low, high, personComparator);
 
-            sort(arr, low, pi - 1, personComparator);
-            sort(arr, pi + 1, high, personComparator);
+            sort(arr, low, p - 1, personComparator);
+            sort(arr, p + 1, high, personComparator);
         }
     }
 
