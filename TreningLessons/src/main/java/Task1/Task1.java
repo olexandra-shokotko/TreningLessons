@@ -1,3 +1,5 @@
+package Task1;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Task1 {
-    private static final String FILE_NAME = "file.txt";
+    private static final String FILE_NAME = "file1.txt";
     private static final String REGEX = "\\(?\\d{3}\\)?(?: |-)\\d{3}-\\d{4}";
 
     public static void main(String[] args) {
