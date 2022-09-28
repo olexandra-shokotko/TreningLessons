@@ -12,12 +12,12 @@ public class Main {
         myLinkedList.add(15);
 
         System.out.println("List-----------------------");
-        myLinkedList.print();
+        System.out.println(myLinkedList);
         System.out.println("Size: " + myLinkedList.size());
 
         System.out.println("\nList after removing element by index 3-----------------------");
         myLinkedList.remove(3);
-        myLinkedList.print();
+        System.out.println(myLinkedList);
         System.out.println("Size: " + myLinkedList.size());
 
         System.out.println("\nElement by index 2-----------------------");

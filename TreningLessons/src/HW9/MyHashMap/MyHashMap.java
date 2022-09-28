@@ -1,52 +1,81 @@
 package HW9.MyHashMap;
 
+import java.util.Arrays;
+
 public class MyHashMap {
     private int size;
-    private Node tail;
+    private Node[] table;
+    static final int capacity = 16;
 
     public MyHashMap() {
         size = 0;
+        table = new Node[capacity];
     }
 
-    // if in hashmap already exists node with given key it will be replace with new node
     public void put(Object key, Object value) {
+        int index = index(key);
         Node newNode = new Node(key, value, null);
-        if (tail == null) {
-            tail = newNode;
+
+        if (table[index] == null) {
+            table[index] = newNode;
         } else {
-            if (ifKeyExist(newNode)) {
-                remove(key);
+            Node prevNode = null;
+            Node curNode = table[index];
+
+            while (curNode != null) {
+                if (curNode.getKey().equals(key)) {
+                    curNode.setValue(value);
+                    break;
+                }
+                prevNode = curNode;
+                curNode = curNode.getNext();
             }
-            newNode.setNext(tail.getNext());
-            tail.setNext(newNode);
+            if (prevNode != null)
+                prevNode.setNext(newNode);
         }
         size++;
     }
 
     public void remove(Object key) {
-        Node prevCurrentNode = tail;
-        Node currentNode = tail.getNext();
-        if (tail.getKey().equals(key)) {
-            tail = tail.getNext();
-        }
-        for (int i = 0; i < (size); i++) {
-            if (currentNode.getKey().equals(key)) {
-                prevCurrentNode.setNext(currentNode.getNext());
-                currentNode = null;
+        int index = index(key);
+        Node prev = null;
+        Node node = table[index];
+
+        while (node != null) {
+            if (node.getKey().equals(key)) {
+                if (prev == null) {
+                    node = node.getNext();
+                    table[index] = node;
+                } else {
+                    prev.setNext(node.getNext());
+                }
                 size--;
-                break;
-            } else if (currentNode.getNext() != null) {
-                prevCurrentNode = prevCurrentNode.getNext();
-                currentNode = currentNode.getNext();
-            } else {
-                break;
+                return;
             }
+            prev = node;
+            node = node.getNext();
         }
     }
 
+    public Object get(Object key) {
+        Object value = null;
+        int index = index(key);
+        Node node = table[index];
+
+        while (node != null) {
+            if (node.getKey().equals(key)) {
+                value = node.getValue();
+                break;
+            }
+            node = node.getNext();
+        }
+        return value;
+    }
+
     public void clear() {
-        tail.setNext(null);
-        tail = null;
+        for (int i = 0; i < table.length; i++) {
+            table[i] = null;
+        }
         size = 0;
     }
 
@@ -54,36 +83,26 @@ public class MyHashMap {
         return size;
     }
 
-    public Object get(Object key) {
-        Node node = tail;
-        while (node != null) {
-            if (node.getKey().equals(key)) {
-                return node;
-            }
-            node = node.getNext();
+    private int index(Object key) {
+        if (key == null) {
+            return 0;
         }
-        return null;
+        return Math.abs(key.hashCode() % capacity);
     }
 
-    private boolean ifKeyExist(Node node) {
-        if (tail.getKey().equals(node.getKey())) {
-            return true;
-        }
-        for (int i = 0; i < size; i++) {
-            if (tail.getNext() != null) {
-                if (tail.getNext().getKey().equals(node.getKey())) {
-                    return true;
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < capacity; i++) {
+            if (table[i] != null) {
+                Node curNode = table[i];
+                while (curNode != null) {
+                    stringBuilder.append(curNode).append("\n");
+                    curNode = curNode.getNext();
                 }
             }
         }
-        return false;
-    }
-
-    public void print() {
-        Node node = tail;
-        while (node != null) {
-            System.out.println(node);
-            node = node.getNext();
-        }
+        return stringBuilder.toString();
     }
 }

@@ -16,24 +16,24 @@ public class Main {
         myQueue.add(19);
         myQueue.add(20);
 
-        myQueue.print();
+        System.out.println(myQueue);
         System.out.println("Size: " + myQueue.size());
 
         System.out.println("First element: " + myQueue.peek());
 
         System.out.println("Queue after removing 2 index element------------");
-        myQueue.remove(9);
-        myQueue.print();
+        myQueue.remove(2);
+        System.out.println(myQueue);
         System.out.println("Size: " + myQueue.size());
 
         System.out.println("First element and removing it------------");
         System.out.println("First element: " + myQueue.poll());
-        myQueue.print();
+        System.out.println(myQueue);
         System.out.println("Size: " + myQueue.size());
 
         System.out.println("Queue after clear------------");
         myQueue.clear();
-        myQueue.print();
+        System.out.println(myQueue);
         System.out.println("Size: " + myQueue.size());
     }
 }

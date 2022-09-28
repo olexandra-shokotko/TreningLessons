@@ -12,10 +12,10 @@ public class Main {
         System.out.println("Size: " + myArrayList.size());
         System.out.println(myArrayList.get(2));
 
-        myArrayList.print();
+        System.out.println(myArrayList);
 
         myArrayList.remove(3);
-        myArrayList.print();
+        System.out.println(myArrayList);
         System.out.println("Size: " + myArrayList.size());
 
         myArrayList.clear();

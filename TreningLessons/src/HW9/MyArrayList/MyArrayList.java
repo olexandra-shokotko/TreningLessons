@@ -1,6 +1,9 @@
 package HW9.MyArrayList;
 
+import HW9.MyLinkedList.MyLinkedList;
+
 import java.util.Arrays;
+import java.util.Objects;
 
 public class MyArrayList {
     private static final int INITIAL_SIZE = 10;
@@ -27,15 +30,17 @@ public class MyArrayList {
     }
 
     public void remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        try {
+            Objects.checkIndex(index, size);
+            for (int i = index; i < size - 1; i++) {
+                elements[i] = elements[i + 1];
+            }
+            elements[size - 1] = null;
+            size--;
 
-        for (int i = index; i < size - 1; i++) {
-            elements[i] = elements[i + 1];
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Invalid index");
         }
-        elements[size - 1] = null;
-        size--;
     }
 
     public void clear() {
@@ -50,16 +55,21 @@ public class MyArrayList {
     }
 
     public Object get(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
+        try {
+            Objects.checkIndex(index, size);
+            return elements[index];
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Invalid index");
+            return null;
         }
-        return elements[index];
     }
 
-    public void print() {
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < size; i++) {
-            System.out.print(elements[i] + " ");
+            stringBuilder.append(elements[i]).append(" ");
         }
-        System.out.println("\n");
+        return stringBuilder.toString();
     }
 }

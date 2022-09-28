@@ -1,23 +1,8 @@
 package HW9.MyStack;
 
+import java.util.Objects;
+
 public class MyStack {
-    private class Node {
-        Object value;
-        Node prev;
-
-        public Node(Object value, Node prev) {
-            this.value = value;
-            this.prev = prev;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "value=" + value +
-                    '}';
-        }
-    }
-
     private int size;
     private Node head;
 
@@ -35,26 +20,27 @@ public class MyStack {
     }
 
     public void remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Invalid index");
-        }
-
-        if (index == size - 1) {
-            head = head.prev;
-        } else {
-            Node currentNode = head;
-            Node prevCurrentNode = currentNode;
-            for (int i = 0; i < (size - index - 2); i++) {
-                prevCurrentNode = prevCurrentNode.prev;
+        try {
+            Objects.checkIndex(index, size);
+            if (index == size - 1) {
+                head = head.prev;
+            } else {
+                Node currentNode = head;
+                Node prevCurrentNode = currentNode;
+                for (int i = 0; i < (size - index - 2); i++) {
+                    prevCurrentNode = prevCurrentNode.prev;
+                }
+                for (int i = 0; i < (size - index - 1); i++) {
+                    currentNode = currentNode.prev;
+                }
+                prevCurrentNode.prev = currentNode.prev;
+                currentNode.prev = null;
+                currentNode = null;
             }
-            for (int i = 0; i < (size - index - 1); i++) {
-                currentNode = currentNode.prev;
-            }
-            prevCurrentNode.prev = currentNode.prev;
-            currentNode.prev = null;
-            currentNode = null;
+            size--;
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Invalid index");
         }
-        size--;
     }
 
     public void clear() {
@@ -87,11 +73,31 @@ public class MyStack {
         return curNode;
     }
 
-    public void print() {
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
         Node node = head;
         while (node != null) {
-            System.out.println(node.value);
+            stringBuilder.append(node.value).append("\n");
             node = node.prev;
+        }
+        return stringBuilder.toString();
+    }
+
+    private class Node {
+        Object value;
+        Node prev;
+
+        public Node(Object value, Node prev) {
+            this.value = value;
+            this.prev = prev;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "value=" + value +
+                    '}';
         }
     }
 }

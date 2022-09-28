@@ -1,23 +1,8 @@
 package HW9.MyQueue;
 
+import java.util.Objects;
+
 public class MyQueue {
-    private class Node {
-        Object value;
-        Node next;
-
-        public Node(Object value, Node next) {
-            this.value = value;
-            this.next = next;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "value=" + value +
-                    '}';
-        }
-    }
-
     private Node tail;
     private int size;
 
@@ -35,26 +20,27 @@ public class MyQueue {
     }
 
     public void remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Invalid index");
-        }
-
-        if (index == size - 1) {
-            tail = tail.next;
-        } else {
-            Node currentNode = tail;
-            Node prevCurrentNode = currentNode;
-            for (int i = 0; i < (size - index - 2); i++) {
-                prevCurrentNode = prevCurrentNode.next;
+        try {
+            Objects.checkIndex(index, size);
+            if (index == size - 1) {
+                tail = tail.next;
+            } else {
+                Node currentNode = tail;
+                Node prevCurrentNode = currentNode;
+                for (int i = 0; i < (size - index - 2); i++) {
+                    prevCurrentNode = prevCurrentNode.next;
+                }
+                for (int i = 0; i < (size - index - 1); i++) {
+                    currentNode = currentNode.next;
+                }
+                prevCurrentNode.next = currentNode.next;
+                currentNode.next = null;
+                currentNode = null;
             }
-            for (int i = 0; i < (size - index - 1); i++) {
-                currentNode = currentNode.next;
-            }
-            prevCurrentNode.next = currentNode.next;
-            currentNode.next = null;
-            currentNode = null;
+            size--;
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Invalid index");
         }
-        size--;
     }
 
     public void clear() {
@@ -87,11 +73,31 @@ public class MyQueue {
         return curNode;
     }
 
-    public void print() {
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
         Node node = tail;
         while (node != null) {
-            System.out.println(node.value);
+            stringBuilder.append(node.value).append("\n");
             node = node.next;
+        }
+        return stringBuilder.toString();
+    }
+
+    private class Node {
+        Object value;
+        Node next;
+
+        public Node(Object value, Node next) {
+            this.value = value;
+            this.next = next;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "value=" + value +
+                    '}';
         }
     }
 }
